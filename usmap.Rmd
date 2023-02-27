@@ -1,33 +1,20 @@
-US Map
-================
+---
+title: "US Map"
+output: github_document
+---
 
-``` r
+``` {r setup}
 library(usmap)
 library(ggplot2)
 library(Cairo)
 library(dplyr)
-```
-
-    ## 
-    ## Attaching package: 'dplyr'
-
-    ## The following objects are masked from 'package:stats':
-    ## 
-    ##     filter, lag
-
-    ## The following objects are masked from 'package:base':
-    ## 
-    ##     intersect, setdiff, setequal, union
-
-``` r
 library(ggrepel)
 ```
 
 ## Introduction
 
 ## Data import
-
-``` r
+``` {r data}
 # https://www.opa.mil/research-analysis/recruiting-awareness/population-representation/2020-population-representation-in-the-military-services/population-representation-in-the-military-services-fy20-appendix-b-active-component-accessions-and-force/
 df <- read.csv("data/poprep2020.csv")
 
@@ -51,8 +38,7 @@ poly <- left_join(poly, df[c("full", "representation_ratio")], by = "full")
 ```
 
 ## Map plotting
-
-``` r
+``` {r map_plot}
 p <- ggplot()
 p <- p + geom_polygon(data = poly, 
                       aes(x, y, group = group, fill = representation_ratio), 
@@ -91,5 +77,4 @@ ggsave("img/map.png",
        dpi = 300,
        type = "cairo-png")
 ```
-
 ![](img/map.png)
